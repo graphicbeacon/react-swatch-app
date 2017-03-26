@@ -5,8 +5,11 @@ class SwatchPreview extends React.Component {
         return (
             <div 
                 className="swatch-app__preview-box"
-                style={{backgroundColor: `rgb(${this.props.bgColor.r}, ${this.props.bgColor.g}, ${this.props.bgColor.b})`}}
-            >{this.props.children}</div>
+                style={{backgroundColor: `rgb(${this.props.bgColor.r}, ${this.props.bgColor.g}, ${this.props.bgColor.b})`}}>
+                <div className="swatch-app__preview-box__controls">
+                    {this.props.children}
+                </div>
+            </div>
         )
     }
 }

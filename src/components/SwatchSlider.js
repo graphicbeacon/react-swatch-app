@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class SwatchSelectSlider extends Component {
+class SwatchSlider extends React.Component {
     constructor(props) {
         super(props);
         //
@@ -10,9 +10,22 @@ class SwatchSelectSlider extends Component {
     }
 
     update(e) {
-        let targetValue = e.target.value;
-        this.setState({value: targetValue})
-        this.setChange(targetValue)
+        let targetValue = isNaN(e.target.value) ? 0 : parseFloat(e.target.value);
+        this.setState({value: this.validateRange(targetValue)})
+        this.setChange(this.validateRange(targetValue))
+    }
+
+    validateRange(currentValue) {
+        let setValue = currentValue;
+        
+        // Ensure set value is within range
+        if (currentValue > this.props.max) {
+            setValue = this.props.max;
+        } else if (currentValue < this.props.min) {
+            setValue = this.props.min;
+        }
+
+        return setValue;
     }
 
     setChange(updatedValue) {
@@ -23,7 +36,7 @@ class SwatchSelectSlider extends Component {
     }
     
     componentDidMount() {
-        this.setChange(this.props.value);
+        this.setChange(this.validateRange(this.props.value));
     }
 
     render() {
@@ -50,8 +63,8 @@ class SwatchSelectSlider extends Component {
     }
 }
 
-SwatchSelectSlider.defaultProps = {
+SwatchSlider.defaultProps = {
     value: 0
 }
 
-export default SwatchSelectSlider;
+export default SwatchSlider;

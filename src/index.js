@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './App';
+import SwatchApp from './components/SwatchApp';
 import './index.css';
 
 ReactDOM.render(
-  <App />,
+  <SwatchApp />,
   document.getElementById('root')
 );

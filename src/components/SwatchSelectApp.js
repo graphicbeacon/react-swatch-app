@@ -32,9 +32,9 @@ class SwatchSelectApp extends React.Component {
         return (
             <div className="swatch-select-app">
                 <SwatchPreview bgColor={this.state.swatchValues} />
-                <SwatchSelectSlider min="0" max="255" step="1" color="r" onChange={this.update} />
-                <SwatchSelectSlider min="0" max="255" step="1" color="g" onChange={this.update} />
-                <SwatchSelectSlider min="0" max="255" step="1" color="b" onChange={this.update} />
+                <SwatchSelectSlider min="0" max="255" step="1" color="r" value="120" onChange={this.update} />
+                <SwatchSelectSlider min="0" max="255" step="1" color="g" value="120" onChange={this.update} />
+                <SwatchSelectSlider min="0" max="255" step="1" color="b" value="120" onChange={this.update} />
             </div>
         );
     }

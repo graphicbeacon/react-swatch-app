@@ -5,17 +5,25 @@ class SwatchSelectSlider extends Component {
         super(props);
         //
         this.state = {
-            value: 0
+            value: props.value
         }
     }
 
     update(e) {
         let targetValue = e.target.value;
         this.setState({value: targetValue})
+        this.setChange(targetValue)
+    }
+
+    setChange(updatedValue) {
         this.props.onChange({
             color: this.props.color,
-            value: targetValue
+            value: updatedValue
         });
+    }
+    
+    componentDidMount() {
+        this.setChange(this.props.value);
     }
 
     render() {
@@ -40,6 +48,10 @@ class SwatchSelectSlider extends Component {
             </div>
         );
     }
+}
+
+SwatchSelectSlider.defaultProps = {
+    value: 0
 }
 
 export default SwatchSelectSlider;

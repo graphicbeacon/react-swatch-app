@@ -11,8 +11,8 @@ class SwatchSlider extends React.Component {
 
     update(e) {
         let targetValue = isNaN(e.target.value) ? 0 : parseFloat(e.target.value);
-        this.setState({value: this.validateRange(targetValue)})
-        this.setChange(this.validateRange(targetValue))
+        this.setState({value: this.validateRange(targetValue)});
+        this.propagateChange(this.validateRange(targetValue));
     }
 
     validateRange(currentValue) {
@@ -28,7 +28,7 @@ class SwatchSlider extends React.Component {
         return setValue;
     }
 
-    setChange(updatedValue) {
+    propagateChange(updatedValue) {
         this.props.onChange({
             color: this.props.color,
             value: updatedValue
@@ -36,7 +36,7 @@ class SwatchSlider extends React.Component {
     }
     
     componentDidMount() {
-        this.setChange(this.validateRange(this.props.value));
+        this.propagateChange(this.validateRange(this.props.value));
     }
 
     render() {
@@ -64,6 +64,9 @@ class SwatchSlider extends React.Component {
 }
 
 SwatchSlider.defaultProps = {
+    min: 0,
+    max: 10,
+    step: 1,
     value: 0
 }
 

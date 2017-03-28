@@ -40,6 +40,7 @@ class SwatchSlider extends React.Component {
     }
 
     render() {
+        // TODO eliminate the use of state so its dumb component
         return (
             <div>
                 <input 

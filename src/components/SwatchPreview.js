@@ -7,6 +7,7 @@ const SwatchPreview = function(props) {
             style={{backgroundColor: `rgb(${props.bgColor.r}, ${props.bgColor.g}, ${props.bgColor.b})`}}>
             <div className="swatch-app__preview-box__controls">
                 {props.children}
+                <button onClick={props.onSave}>Save</button>
             </div>
         </div>
     )

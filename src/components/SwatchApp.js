@@ -1,20 +1,32 @@
 import React from 'react';
 import SwatchPreview from './SwatchPreview';
 import SwatchSlider from './SwatchSlider';
+import SwatchAppStore from '../stores/SwatchAppStore';
+import SwatchAppDispatcher from '../utils/Dispatcher';
 
 class SwatchApp extends React.Component {
     constructor(props) {
         super(props);
         //
         this.state = {
-            swatchValues: {
-                r: 0,
-                g: 0,
-                b: 0
-            }
-        }
+            swatchValues: SwatchAppStore.load()
+        };
 
         this.update = this.update.bind(this);
+        this.savePreview = this.savePreview.bind(this);
+    }
+
+    componentDidMount() {
+        SwatchAppStore.on('saved rgb', (rgb) => {
+            window.alert('Saved RGB')
+        });
+    }
+
+    savePreview() {
+        SwatchAppDispatcher.dispatch({
+            type: 'SAVE_RGB',
+            data: this.state.swatchValues
+        });
     }
 
     update(lastSwatchUpdate) {
@@ -26,16 +38,16 @@ class SwatchApp extends React.Component {
         // Rerender component
         this.setState({
             swatchValues: updateObject
-        })
+        });
     }
 
     render() {
         return (
             <div className="swatch-app">
-            <SwatchPreview bgColor={this.state.swatchValues}>
-                <SwatchSlider min="0" max="255" step="1" color="r" value="120" onChange={this.update} />
-                <SwatchSlider min="0" max="255" step="1" color="g" value="120" onChange={this.update} />
-                <SwatchSlider min="0" max="255" step="1" color="b" value="120" onChange={this.update} />
+            <SwatchPreview bgColor={this.state.swatchValues} onSave={this.savePreview}>
+                <SwatchSlider min="0" max="255" step="1" color="r" value={this.state.swatchValues.r} onChange={this.update} />
+                <SwatchSlider min="0" max="255" step="1" color="g" value={this.state.swatchValues.g} onChange={this.update} />
+                <SwatchSlider min="0" max="255" step="1" color="b" value={this.state.swatchValues.b} onChange={this.update} />
             </SwatchPreview>
             </div>
         );

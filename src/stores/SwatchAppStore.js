@@ -16,6 +16,11 @@ class SwatchAppStore extends EventEmitter {
         return window.localStorage.setItem(this.swatchStorageKey, JSON.stringify(swatchObj));
     }
 
+    reset() {
+        window.localStorage.removeItem(this.swatchStorageKey);
+        this.rgbValues = Object.assign({}, this.rgbValues);
+    }
+
     load() {
         let loadedRgbValues = window.localStorage.getItem(this.swatchStorageKey);
         return loadedRgbValues ? JSON.parse(loadedRgbValues) : this.rgbValues;
@@ -29,6 +34,11 @@ SwatchAppDispatcher.register(function(action) {
         case 'SAVE_RGB':
             swatchAppStore.save(action.data);
             swatchAppStore.emit('saved rgb');
+        break;
+
+        case 'RESET_RGB':
+            swatchAppStore.reset();
+            swatchAppStore.emit('reset rgb');
         break;
 
         default:

@@ -1,8 +1,9 @@
 import React from 'react';
 import SwatchPreview from './SwatchPreview';
 import SwatchSlider from './SwatchSlider';
-import SwatchAppStore from '../stores/SwatchAppStore';
+import SwatchAppStore from '../data/SwatchAppStore';
 import SwatchAppDispatcher from '../utils/Dispatcher';
+import SwatchAppConstants from '../data/Constants';
 
 class SwatchApp extends React.Component {
     constructor(props) {
@@ -17,11 +18,11 @@ class SwatchApp extends React.Component {
     }
 
     componentDidMount() {
-        SwatchAppStore.on('saved rgb', (rgb) => {
+        SwatchAppStore.on(SwatchAppConstants.EVENTS.save, (rgb) => {
             window.alert('Saved RGB')
         });
 
-        SwatchAppStore.on('reset rgb', () => {
+        SwatchAppStore.on(SwatchAppConstants.EVENTS.reset, () => {
             window.alert('Reset RGB');
             this.setState({
                 swatchValues: SwatchAppStore.load()
@@ -31,14 +32,14 @@ class SwatchApp extends React.Component {
 
     savePreview() {
         SwatchAppDispatcher.dispatch({
-            type: 'SAVE_RGB',
+            type: SwatchAppConstants.ACTIONS.save,
             data: this.state.swatchValues
         });
     }
 
     resetPreview() {
         SwatchAppDispatcher.dispatch({
-            type: 'RESET_RGB'
+            type: SwatchAppConstants.ACTIONS.reset
         });
     }
 

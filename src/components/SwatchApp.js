@@ -30,7 +30,7 @@ class SwatchApp extends React.Component {
     }
 
     update(lastSwatchUpdate) {
-        let updateObject = this.state.swatchValues;
+        let updateObject = Object.assign({}, this.state.swatchValues);
 
         // Update latest swatch
         updateObject[lastSwatchUpdate.color] = lastSwatchUpdate.value;

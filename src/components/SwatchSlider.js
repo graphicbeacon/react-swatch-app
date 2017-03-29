@@ -1,17 +1,8 @@
 import React from 'react';
 
 class SwatchSlider extends React.Component {
-    constructor(props) {
-        super(props);
-        //
-        this.state = {
-            value: props.value
-        }
-    }
-
     update(e) {
         let targetValue = isNaN(e.target.value) ? 0 : parseFloat(e.target.value);
-        this.setState({value: this.validateRange(targetValue)});
         this.propagateChange(this.validateRange(targetValue));
     }
 
@@ -40,7 +31,6 @@ class SwatchSlider extends React.Component {
     }
 
     render() {
-        // TODO eliminate the use of state so its dumb component
         return (
             <div>
                 <input 
@@ -48,7 +38,7 @@ class SwatchSlider extends React.Component {
                     min={this.props.min}
                     max={this.props.max}
                     step={this.props.step}
-                    value={this.state.value}
+                    value={this.props.value}
                     onChange={this.update.bind(this)}
                 />
                 <input 
@@ -56,7 +46,7 @@ class SwatchSlider extends React.Component {
                     min={this.props.min}
                     max={this.props.max}
                     step={this.props.step}
-                    value={this.state.value}
+                    value={this.props.value}
                     onChange={this.update.bind(this)}
                 />
             </div>
